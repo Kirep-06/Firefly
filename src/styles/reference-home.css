@@ -1,6 +1,7 @@
 /* 首页采用深色内容面板，壁纸仍由站点自己的配置提供。 */
 html.dark body.is-home #content-panel-inner {
 	background: #252d38;
+	color: #c4c6c9;
 	border-radius: 1rem 1rem 0 0;
 	padding: clamp(1rem, 3vw, 3rem) clamp(0.5rem, 1.5vw, 1.5rem);
 }
@@ -24,7 +25,8 @@ body.is-home #post-list-container .post-card-content {
 
 body.is-home #post-list-container .post-card-title {
 	order: 1;
-	font-size: clamp(1.4rem, 2vw, 2rem);
+	font-size: 1.25rem;
+	color: #c4c6c9;
 }
 
 body.is-home #post-list-container .post-card-title::before,
@@ -38,15 +40,46 @@ body.is-home #post-list-container .description {
 	order: 2;
 	margin-bottom: 0.75rem;
 	line-height: 1.6;
+	color: #a7a9ad;
 }
 
 body.is-home #post-list-container .post-meta {
 	order: 3;
 	margin-bottom: 0;
+	color: #a7a9ad;
+}
+
+body.is-home #post-list-container .post-meta a,
+body.is-home #post-list-container .post-meta svg {
+	color: #a7a9ad;
+}
+
+body.is-home #post-list-container .post-meta .meta-icon,
+body.is-home #post-list-container .post-meta .pinned-btn {
+	background: transparent;
+	color: #a7a9ad;
+	padding: 0;
+}
+
+body.is-home #post-list-container .post-meta .meta-icon svg,
+body.is-home #post-list-container .post-meta .pinned-btn svg {
+	color: #a7a9ad;
 }
 
 body.is-home #left-sidebar .card-base {
-	background: #28313d;
+	background: #28313d !important;
+}
+
+body.is-home #left-sidebar .card-base svg {
+	color: #c4c6c9;
+}
+
+html.dark body.is-home #navbar.scrolled > div {
+	background: #1f3144 !important;
+}
+
+body.is-home #navbar.scrolled {
+	border-radius: 0;
 }
 
 body.is-home #left-sidebar .profile-avatar-image {
