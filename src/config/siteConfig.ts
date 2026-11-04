@@ -45,7 +45,7 @@ export const siteConfig: SiteConfig = {
 	title: "Kirep's Blog",
 
 	// 站点副标题
-	subtitle: "记录技术与生活",
+	subtitle: "",
 
 	// 站点 URL
 	site_url: "https://kirep.top",

@@ -91,6 +91,24 @@ body.is-home #left-sidebar .profile-avatar-image {
 }
 
 @media (max-width: 767px) {
+	html[data-wallpaper-mode="fullscreen"] body.is-home .content-panel {
+		--content-top: 100svh;
+	}
+
+	html[data-wallpaper-mode="fullscreen"] body.is-home #wallpaper-wrapper {
+		height: 100svh !important;
+	}
+
+	html[data-wallpaper-mode="fullscreen"] body.is-home .banner-home-text-overlay {
+		align-items: flex-start !important;
+		padding-top: clamp(7rem, 25svh, 14rem) !important;
+	}
+
+	html[data-wallpaper-mode="fullscreen"] body.is-home .banner-title {
+		font-size: clamp(2.1rem, 7vw, 2.75rem) !important;
+		line-height: 1.15 !important;
+	}
+
 	body.is-home #content-panel-inner {
 		border-radius: 0;
 	}
