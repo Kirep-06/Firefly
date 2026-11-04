@@ -24,8 +24,8 @@ const topMaxCount = topTags.length > 0 ? topTags[0].count : 1;
         </p>
     </div>
 
-    <div class="flex w-full rounded-(--radius-large) overflow-hidden relative min-h-32">
-        <div class="card-base z-10 px-9 py-6 relative w-full">
+    <div class="flex w-full rounded-(--radius-large) overflow-hidden relative">
+        <div class="card-base z-10 px-6 sm:px-8 py-4 relative w-full">
             <div class="flex flex-wrap gap-2.5">
                 {tags.map((t) => (
                     <a href={getTagUrl(t.name)}
@@ -60,11 +60,11 @@ const topMaxCount = topTags.length > 0 ? topTags[0].count : 1;
 
     <!-- Top 10 标签排行 -->
     {topTags.length > 0 && (
-        <div class="card-base px-8 py-6 mt-4">
-            <h2 class="text-lg font-bold text-75 mb-4">
+        <div class="card-base px-6 sm:px-8 py-4 mt-4">
+            <h2 class="text-lg font-bold text-75 mb-2">
                 Top 10
             </h2>
-            <div class="flex flex-col gap-3">
+            <div class="flex flex-col gap-1">
                 {topTags.map((t, i) => (
                     <a href={getTagUrl(t.name)}
                        class="flex items-center gap-3 group hover:bg-(--btn-card-bg-hover) rounded-lg px-3 py-2 -mx-3 transition-colors"

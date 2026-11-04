@@ -193,7 +193,7 @@ $: if (initialized && (keywordMobile || keywordMobile === "")) {
            aria-controls="search-panel" data-floating-panel-no-expanded
            on:focus={handleDesktopFocus}
            class="transition-all pl-10 text-sm bg-transparent outline-0
-         h-full w-40 active:w-60 focus:w-60 text-black/50 dark:text-white/50"
+         h-full w-40 active:w-60 focus:w-60 text-black/80 dark:text-white/80 placeholder:text-black/60 dark:placeholder:text-white/70"
     >
 </div>
 
@@ -218,7 +218,7 @@ top-20 left-4 md:left-[unset] right-4 shadow-2xl rounded-2xl p-2"
         <input placeholder={i18n(I18nKey.search)} bind:value={keywordMobile}
                on:focus={requestPagefind}
                class="pl-10 absolute inset-0 text-sm bg-transparent outline-0
-               focus:w-60 text-black/50 dark:text-white/50"
+               focus:w-60 text-black/80 dark:text-white/80 placeholder:text-black/60 dark:placeholder:text-white/70"
         >
     </div>
 

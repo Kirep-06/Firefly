@@ -62,15 +62,6 @@ onMount(() => {
 		}
 	}
 
-	// 如果是system模式，监听系统主题变化
-	if (storedTheme === SYSTEM_MODE) {
-		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-		const handleSystemChange = () => {
-			updateDisplayedMode();
-		};
-		mediaQuery.addEventListener("change", handleSystemChange);
-	}
-
 	// 添加Swup监听
 	const handleContentReplace = () => {
 		const newTheme = getStoredTheme();
