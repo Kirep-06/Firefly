@@ -1,0 +1,68 @@
+/* 首页采用深色内容面板，壁纸仍由站点自己的配置提供。 */
+html.dark body.is-home #content-panel-inner {
+	background: #252d38;
+	border-radius: 1rem 1rem 0 0;
+	padding: clamp(1rem, 3vw, 3rem) clamp(0.5rem, 1.5vw, 1.5rem);
+}
+
+body.is-home #post-list-container {
+	gap: 0;
+}
+
+body.is-home #post-list-container .post-card-wrapper {
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	min-height: 11rem;
+}
+
+body.is-home #post-list-container .post-card-content {
+	width: 100%;
+	padding: 2rem clamp(1rem, 2vw, 2.5rem);
+}
+
+body.is-home #post-list-container .post-card-title {
+	order: 1;
+	font-size: clamp(1.4rem, 2vw, 2rem);
+}
+
+body.is-home #post-list-container .post-card-title::before,
+body.is-home #post-list-container .post-card-image,
+body.is-home #post-list-container .post-card-enter-btn,
+body.is-home #post-list-container .stats {
+	display: none;
+}
+
+body.is-home #post-list-container .description {
+	order: 2;
+	margin-bottom: 0.75rem;
+	line-height: 1.6;
+}
+
+body.is-home #post-list-container .post-meta {
+	order: 3;
+	margin-bottom: 0;
+}
+
+body.is-home #left-sidebar .card-base {
+	background: #28313d;
+}
+
+body.is-home #left-sidebar .profile-avatar-image {
+	width: 6.5rem;
+	height: 6.5rem;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 4px solid #dce7e2;
+}
+
+@media (max-width: 767px) {
+	body.is-home #content-panel-inner {
+		border-radius: 0;
+	}
+
+	body.is-home #post-list-container .post-card-content {
+		padding-inline: 1rem;
+	}
+}
