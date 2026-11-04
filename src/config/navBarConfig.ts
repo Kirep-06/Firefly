@@ -36,7 +36,65 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		],
 	});
 
-	links.push(LinkPresets.About);
+	//社交及其子菜单
+	links.push({
+		name: "社交",
+		url: "#",
+		icon: "material-symbols:group",
+		children: [LinkPresets.Friends, LinkPresets.Guestbook],
+	});
+
+	// 我的及其子菜单
+	links.push({
+		name: "我的",
+		url: "#",
+		icon: "material-symbols:person",
+		children: [
+			LinkPresets.Dynamic,
+			LinkPresets.Projects,
+			LinkPresets.Gallery,
+			LinkPresets.Booknav,
+			LinkPresets.Bilibili,
+			LinkPresets.Bangumi,
+			LinkPresets.VNDB,
+			LinkPresets.MAL,
+		],
+	});
+
+	// 关于及其子菜单
+	links.push({
+		name: "关于",
+		url: "#",
+		icon: "material-symbols:info",
+		children: [LinkPresets.Sponsor, LinkPresets.About],
+	});
+
+	// 自定义导航栏链接
+	links.push({
+		name: "链接",
+		url: "#",
+		icon: "material-symbols:link",
+		children: [
+			{
+				name: "GitHub",
+				url: "https://github.com/Kirep-06",
+				external: true,
+				icon: "fa7-brands:github",
+			},
+			{
+				name: "Gitee",
+				url: "https://gitee.com/CuteLeaf/Firefly",
+				external: true,
+				icon: "fa7-brands:gitee",
+			},
+			{
+				name: "Firefly文档",
+				url: "https://docs-firefly.cuteleaf.cn",
+				external: true,
+				icon: "material-symbols:docs",
+			},
+		],
+	});
 
 	// 文档链接
 	// links.push({
