@@ -25,7 +25,7 @@ body.is-home #post-list-container .post-card-content {
 
 body.is-home #post-list-container .post-card-title {
 	order: 1;
-	font-size: 1.25rem;
+	font-size: 1.25rem !important;
 	color: #c4c6c9;
 }
 
@@ -74,8 +74,8 @@ body.is-home #left-sidebar .card-base svg {
 	color: #c4c6c9;
 }
 
-html.dark body.is-home #navbar.scrolled > div {
-	background: #1f3144 !important;
+html.dark[data-wallpaper-mode="fullscreen"] body.is-home #top-row #navbar-wrapper #navbar[data-transparent-mode="semifull"].scrolled > div {
+	background-color: #1f3144 !important;
 }
 
 body.is-home #navbar.scrolled {
