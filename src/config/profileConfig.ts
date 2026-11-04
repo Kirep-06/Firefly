@@ -33,11 +33,5 @@ export const profileConfig: ProfileConfig = {
 			url: "mailto:kurfhklkyfhj@gmail.com",
 			showName: false,
 		},
-		{
-			name: "电话",
-			icon: "fa7-solid:phone",
-			url: "tel:18384059592",
-			showName: false,
-		},
 	],
 };
