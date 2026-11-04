@@ -16,6 +16,12 @@ body.is-home #post-list-container .post-card-wrapper {
 	border-radius: 0;
 	box-shadow: none;
 	min-height: 11rem;
+	transition: background-color 180ms ease;
+}
+
+body.is-home #post-list-container .post-card-wrapper:hover,
+body.is-home #post-list-container .post-card-wrapper:focus-within {
+	background: rgb(77 183 233 / 10%);
 }
 
 body.is-home #post-list-container .post-card-content {
@@ -29,9 +35,14 @@ body.is-home #post-list-container .post-card-title {
 	color: #c4c6c9;
 }
 
+body.is-home #post-list-container .post-card-wrapper:hover .post-card-title,
+body.is-home #post-list-container .post-card-wrapper:focus-within .post-card-title {
+	color: #087da9;
+}
+
 html.dark body.is-home #post-list-container .post-card-wrapper:hover .post-card-title,
 html.dark body.is-home #post-list-container .post-card-wrapper:focus-within .post-card-title {
-	color: #f5f9fc;
+	color: #55c7f4;
 }
 
 body.is-home #post-list-container .post-card-title::before,
@@ -48,9 +59,14 @@ body.is-home #post-list-container .description {
 	color: #a7a9ad;
 }
 
+body.is-home #post-list-container .post-card-wrapper:hover .description,
+body.is-home #post-list-container .post-card-wrapper:focus-within .description {
+	color: #1678a5;
+}
+
 html.dark body.is-home #post-list-container .post-card-wrapper:hover .description,
 html.dark body.is-home #post-list-container .post-card-wrapper:focus-within .description {
-	color: #e2edf4;
+	color: #a9e4fc;
 }
 
 body.is-home #post-list-container .post-meta {
