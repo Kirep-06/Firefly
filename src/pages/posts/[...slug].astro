@@ -10,7 +10,6 @@ import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import "@/styles/banner-post.css";
 import {
-	getRelatedPosts,
 	getSeriesPosts,
 	getSortedPosts,
 } from "@utils/content-utils";
@@ -25,7 +24,6 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import CoverImage from "@/components/common/CoverImage.astro";
 import PostMetadata from "@/components/layout/PostMeta.astro";
-import RecommendedPost from "@/components/misc/RecommendedPost.astro";
 import SeriesNav from "@/components/misc/SeriesNav.astro";
 import SharePoster from "@/components/misc/SharePoster.svelte";
 import { coverImageConfig } from "@/config/coverImageConfig";
@@ -196,7 +194,6 @@ const jsonLd = {
 	],
 };
 
-const relatedPosts = await getRelatedPosts(entry, 5);
 const seriesData = await getSeriesPosts(entry);
 ---
 
@@ -715,17 +712,6 @@ const seriesData = await getSeriesPosts(entry);
       </div>
     </a>
       </div>
-    )
-  }
-
-  {
-    (siteConfig.post.relatedPosts || siteConfig.post.randomPosts) && (
-      <RecommendedPost
-        relatedPosts={relatedPosts}
-        currentPostId={entry.id}
-        showRelatedPosts={siteConfig.post.relatedPosts}
-        showRandomPosts={siteConfig.post.randomPosts}
-      />
     )
   }
 
