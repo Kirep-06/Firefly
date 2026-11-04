@@ -71,6 +71,12 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 			// 图标支持 Iconify 格式：fa7-brands:github、fa7-solid:envelope、mdi:rss 等
 			links: [
 				{
+					name: "GitHub",
+					icon: "fa7-brands:github",
+					url: "https://github.com/Kirep-06",
+					showName: true,
+				},
+				{
 					name: "Email",
 					icon: "fa7-solid:envelope",
 					url: "mailto:kurfhklkyfhj@gmail.com",
