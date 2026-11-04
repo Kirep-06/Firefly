@@ -122,6 +122,7 @@ const tLoadError = i18n(I18nKey.videoLoadError);
 		function doPlay() {
 			video.src = urlList[currentIndex];
 			video.muted = true;
+			video.loop = !isMultiple;
 			video.play()
 				.then(function () { setTimeout(function () { if (video) video.muted = false; }, 100); })
 				.catch(function () { isPlaying = false; syncAttr(); });
