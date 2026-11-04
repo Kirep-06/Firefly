@@ -5,7 +5,7 @@ export const announcementConfig: AnnouncementConfig = {
 	title: "",
 
 	// 公告内容
-	content: "欢迎来到 Kirep 的博客！这里会记录技术学习、实践与生活。",
+	content: "欢迎来到 Kirep's Blog！这里会记录技术学习、实践与生活。",
 
 	// 是否允许用户关闭公告
 	closable: true,

@@ -36,6 +36,10 @@ try {
 
 	<div class="transition flex flex-col items-center justify-center px-6">
 		<div class="transition text-50 text-sm text-center wrap">
+			<div class="mx-0.5 my-2.5 flex gap-x-4 gap-y-2 justify-center flex-wrap">
+				<span id="busuanzi_container_site_pv">站点访问量： <span id="busuanzi_value_site_pv"></span></span>
+				<span id="busuanzi_container_site_uv">访客数量： <span id="busuanzi_value_site_uv"></span></span>
+			</div>
 			<div class="mb-2">
 				{customFooterHtml && <div set:html={customFooterHtml} />}
 			</div>
@@ -75,3 +79,16 @@ try {
 		</div>
 	</div>
 </footer>
+
+<script is:inline>
+	// Footer 位于 Swup 容器外，软导航时需重新请求以记录新页面访问。
+	const loadVisitCounts = () => {
+		const script = document.createElement("script");
+		script.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+		script.async = true;
+		script.onload = script.onerror = () => script.remove();
+		document.head.appendChild(script);
+	};
+	loadVisitCounts();
+	document.addEventListener("swup:contentReplaced", loadVisitCounts);
+</script>

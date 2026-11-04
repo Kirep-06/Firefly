@@ -11,9 +11,9 @@ const pages = resolvePageToggles({
 	// ── 社交 (Social) ──────────────────────────────────
 
 	// 友链页面开关
-	friends: false,
+	friends: true,
 	// 留言板页面开关，需要配置评论系统
-	guestbook: false,
+	guestbook: true,
 
 	// ── 我的 (My) ──────────────────────────────────
 
@@ -42,7 +42,7 @@ const pages = resolvePageToggles({
 
 export const siteConfig: SiteConfig = {
 	// 站点标题
-	title: "Kirep 的博客",
+	title: "Kirep's Blog",
 
 	// 站点副标题
 	subtitle: "记录技术与生活",
@@ -113,7 +113,7 @@ export const siteConfig: SiteConfig = {
 				alt: "Kirep",
 		},
 		// 导航栏标题
-		title: "Kirep 的博客",
+		title: "Kirep's Blog",
 		// 全宽导航栏，导航栏是否占满屏幕宽度
 		widthFull: false,
 		// 导航菜单对齐方式，left：左对齐，center：居中
