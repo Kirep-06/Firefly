@@ -73,8 +73,9 @@ export function updateMainGridCols(): void {
 }
 
 // 更新侧边栏组件的可见性
-export function updateSidebarComponentsVisibility(): void {
-	const isPostPage = isCurrentPagePost();
+export function updateSidebarComponentsVisibility(
+	isPostPage: boolean = isCurrentPagePost(),
+): void {
 
 	// 处理侧边栏级别的 hideSidebarOnPostPage 配置
 	document

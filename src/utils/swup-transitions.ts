@@ -16,7 +16,7 @@ import {
 	syncBannerHomeTextVisibility,
 	updateNavbarTransparency,
 } from "@/utils/setting-utils";
-import { pathsEqual, url } from "@/utils/url-utils";
+import { isArticleDetailPage, pathsEqual, url } from "@/utils/url-utils";
 
 /**
  * 进度条：WAAPI 驱动 transform/opacity（合成线程动画）。
@@ -136,6 +136,14 @@ function registerSwupHooks(): void {
 	window.swup.hooks.on("visit:start", (visit: { to: { url: string } }) => {
 		// Start progress bar（WAAPI 合成线程动画，不强制回流）
 		startProgressBar();
+
+		// 静态侧栏在 Swup 切页时不会替换。进入文章前就隐藏首页头像等组件，
+		// 避免等到 page:view 才更新而在过渡首帧闪现。
+		if (
+			isArticleDetailPage(new URL(visit.to.url, window.location.href).pathname)
+		) {
+			updateSidebarComponentsVisibility(true);
+		}
 
 		// 先回顶，让后续 FLIP 在 scroll=0 的坐标系内计算：
 		// 若在切页后才回顶，FLIP 的 invert 是按切页前滚动位置校准的，scroll 一复位就会导致
