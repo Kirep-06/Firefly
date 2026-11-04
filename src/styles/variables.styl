@@ -153,6 +153,11 @@
   /* 主题色选择条渐变 - 暗色主题 */
   --color-selection-bar: linear-gradient(to right, oklch(0.70 0.10 0), oklch(0.70 0.10 30), oklch(0.70 0.10 60), oklch(0.70 0.10 90), oklch(0.70 0.10 120), oklch(0.70 0.10 150), oklch(0.70 0.10 180), oklch(0.70 0.10 210), oklch(0.70 0.10 240), oklch(0.70 0.10 270), oklch(0.70 0.10 300), oklch(0.70 0.10 330), oklch(0.70 0.10 360))
 
+/* 全屏壁纸暗色模式：保留壁纸层次，同时避免亮色壁纸把卡片染成灰绿。 */
+:root.dark[data-wallpaper-mode="fullscreen"]
+  --card-bg-transparent: unquote("rgb(23 35 49 / calc(0.5 + var(--card-transparent-opacity, 0.6) * 0.5))")
+  --license-block-bg: unquote("rgb(17 32 46 / 0.68)")
+
 /* ===== 响应式断点变量 ===== */
 :root
   /* 断点定义 */
