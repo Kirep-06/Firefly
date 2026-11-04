@@ -31,7 +31,7 @@ body.is-home #post-list-container .post-card-title::before,
 body.is-home #post-list-container .post-card-image,
 body.is-home #post-list-container .post-card-enter-btn,
 body.is-home #post-list-container .stats {
-	display: none;
+	display: none !important;
 }
 
 body.is-home #post-list-container .description {
