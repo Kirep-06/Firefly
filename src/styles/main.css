@@ -295,6 +295,10 @@ html {
         box-shadow: inset 0 1px 0 var(--navbar-glass-highlight), 0 1px 0 var(--navbar-glass-hairline) !important;
     }
 
+    html.dark[data-wallpaper-mode="fullscreen"] body.is-home #navbar[data-transparent-mode="semifull"].scrolled > div {
+        background-color: #1f3144 !important;
+    }
+
     /* 全屏壁纸首页动态透明（semifull）：顶部透明，下滑后显示卡片底色。
        需要比上面 wallpaper-transparent 的固定底色更高特异性，才能让顶部透明生效 */
     html[data-wallpaper-mode="fullscreen"] #navbar[data-transparent-mode="semifull"]:not(.scrolled) > div {

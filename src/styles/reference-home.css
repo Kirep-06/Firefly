@@ -74,10 +74,6 @@ body.is-home #left-sidebar .card-base svg {
 	color: #c4c6c9;
 }
 
-html.dark[data-wallpaper-mode="fullscreen"] body.is-home #top-row #navbar-wrapper #navbar[data-transparent-mode="semifull"].scrolled > div {
-	background-color: #1f3144 !important;
-}
-
 body.is-home #navbar.scrolled {
 	border-radius: 0;
 }
