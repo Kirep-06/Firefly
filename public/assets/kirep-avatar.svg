@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Kirep">
-  <defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#0f766e"/><stop offset="1" stop-color="#164e63"/></linearGradient></defs>
-  <rect width="256" height="256" rx="64" fill="url(#g)"/>
-  <circle cx="128" cy="128" r="102" fill="none" stroke="#ffffff" stroke-opacity=".18" stroke-width="2"/>
-  <text x="128" y="158" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="116" font-weight="700">K</text>
-</svg>
