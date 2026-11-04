@@ -12,6 +12,9 @@ import { Font } from "astro:assets";
 import { fontConfig } from "@/config";
 import { collectUsedFontCssVars } from "@/utils/fontHelper";
 
+// Astro 将未配置字体时的 cssVariable 推断为 never；运行时不会渲染字体组件。
+const ConfiguredFont: any = Font;
+
 // 使用共享的工具函数收集所有需要加载的 CSS 变量名（selected + 各区域字体，去重）
 // enable=false 时返回空集，不会加载任何字体
 const allCssVars = fontConfig.enable
@@ -62,8 +65,8 @@ const codeFontFamily = codeFontVar
 
 <!-- Astro Font API: 自动下载、缓存并生成优化的 @font-face -->
 {Array.from(allCssVars).map((cssVar) => (
-  <Font
-    cssVariable={cssVar as any}
+  <ConfiguredFont
+    cssVariable={cssVar}
     preload={selectedFontVars.includes(cssVar)}
   />
 ))}

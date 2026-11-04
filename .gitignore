@@ -45,5 +45,7 @@ package/
 
 # vibe coding
 .codex*
+.corepack/
+.pnpm/
 .claude
 .mimocode
