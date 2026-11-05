@@ -42,7 +42,7 @@ import "container/list"
 
 type entry struct {
 	key   string
-	value Value
+	value Value // 只要值实现了Value接口就可以
 }
 
 type Value interface {
