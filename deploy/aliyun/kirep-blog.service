@@ -1,0 +1,26 @@
+[Unit]
+Description=Kirep Blog and Article Editor
+After=network.target nginx.service
+
+[Service]
+Type=simple
+User=kirep-blog
+Group=kirep-blog
+WorkingDirectory=/srv/kirep-blog
+EnvironmentFile=/etc/kirep-blog.env
+Environment=HOME=/var/lib/kirep-blog
+Environment=PATH=/opt/kirep-blog/bin:/opt/kirep-blog/node-v22.23.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+Environment=COREPACK_HOME=/var/lib/kirep-blog/.cache/node/corepack
+Environment=PNPM_HOME=/var/lib/kirep-blog/.local/share/pnpm
+Environment=npm_config_registry=https://registry.npmmirror.com
+ExecStart=/opt/kirep-blog/node-v22.23.4/bin/node /srv/kirep-blog/admin/server.mjs
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/kirep-blog/src/content/posts /var/lib/kirep-blog
+
+[Install]
+WantedBy=multi-user.target
