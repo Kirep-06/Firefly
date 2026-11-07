@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, nofollow, noarchive" />
+		<title>博客文章管理 · Kirep</title>
+		<style>
+			:root { color-scheme: light; font-family: system-ui, "Noto Sans SC", sans-serif; background: #f2f7fb; color: #1f3344; }
+			* { box-sizing: border-box; }
+			body { margin: 0; min-height: 100vh; }
+			button, input, textarea { font: inherit; }
+			button { border: 0; cursor: pointer; }
+			.top { display: flex; justify-content: space-between; align-items: center; padding: 18px max(20px, calc((100vw - 1180px)/2)); background: #fff; border-bottom: 1px solid #dfebf3; }
+			.brand { font-weight: 750; font-size: 1.1rem; }
+			.top a { color: #47799b; text-decoration: none; }
+			main { max-width: 1180px; padding: 32px 20px 60px; margin: 0 auto; }
+			h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 0 0 8px; }
+			.lead { color: #60798c; margin: 0 0 24px; }
+			.card { background: #fff; border: 1px solid #dfeaf2; border-radius: 16px; box-shadow: 0 8px 28px #294e650c; padding: 22px; }
+			.hidden { display: none !important; }
+			.login { max-width: 510px; margin: 40px auto; }
+			.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+			label { display: grid; gap: 6px; color: #4c6578; font-size: .9rem; margin: 0 0 14px; }
+			input, textarea { border: 1px solid #cfdee8; border-radius: 9px; padding: 10px 12px; width: 100%; color: #1f3344; background: #fff; }
+			input:focus, textarea:focus { outline: 2px solid #abd4ef; border-color: #70add2; }
+			textarea { min-height: 420px; resize: vertical; font: 14px/1.65 ui-monospace, SFMono-Regular, Consolas, monospace; }
+			.actions { display: flex; gap: 9px; flex-wrap: wrap; align-items: center; }
+			.btn { padding: 10px 15px; border-radius: 9px; font-weight: 650; background: #eaf3f9; color: #2a5977; }
+			.btn.primary { background: #357da7; color: white; }
+			.btn.danger { background: #fff0ed; color: #ac493c; }
+			.btn:disabled { opacity: .55; cursor: wait; }
+			.status { min-height: 1.5em; margin-top: 12px; color: #60798c; white-space: pre-wrap; }
+			.status.error { color: #ac493c; }
+			.status.ok { color: #267751; }
+			.editor { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 18px; align-items: start; }
+			.list { display: grid; gap: 8px; max-height: 75vh; overflow: auto; }
+			.post-item { width: 100%; text-align: left; padding: 11px 12px; border-radius: 9px; background: #f4f8fb; color: inherit; }
+			.post-item.active { background: #e5f2fa; box-shadow: inset 3px 0 #4c96bd; }
+			.post-item strong { display: block; font-weight: 650; }
+			.post-item small { color: #72899a; }
+			.editor-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 16px; }
+			.tagline { color: #72899a; font-size: .85rem; }
+			@media (max-width: 780px) { .editor { grid-template-columns: 1fr; } .list { max-height: 240px; } .row { grid-template-columns: 1fr; gap: 0; } .card { padding: 17px; } }
+		</style>
+	</head>
+	<body>
+		<header class="top"><span class="brand">Kirep · 文章管理</span><a href="/">返回博客 ↗</a></header>
+		<main>
+			<section id="login" class="card login">
+				<h1>登录文章管理</h1>
+				<p class="lead">输入服务器管理员密钥。密钥只保存在当前页面内存中，刷新或关闭页面后需要重新输入。</p>
+				<form id="login-form">
+					<label>管理员密钥<input id="key" type="password" autocomplete="off" required minlength="32" /></label>
+					<button class="btn primary" type="submit">连接管理端</button>
+				</form>
+				<div id="login-status" class="status" role="status"></div>
+			</section>
+			<section id="manager" class="hidden">
+				<div class="editor-head"><div><h1>文章</h1><p class="lead" style="margin:4px 0 0">修改会重建并发布博客；若构建失败，线上版本和原文章会保留。</p></div><div class="actions"><button id="new-post" class="btn primary">新建文章</button><button id="logout" class="btn">退出</button></div></div>
+				<div class="editor">
+					<aside class="card"><div class="editor-head"><strong>文章列表</strong><button id="refresh" class="btn">刷新</button></div><div id="post-list" class="list"></div></aside>
+					<section class="card">
+						<div class="editor-head"><strong id="form-title">新建文章</strong><span id="build-tag" class="tagline"></span></div>
+						<form id="post-form">
+							<div class="row">
+								<label>标题<input id="title" maxlength="200" required /></label>
+								<label>文章路径（slug）<input id="slug" pattern="[\p{L}\p{N}][\p{L}\p{N}-]*(/[\p{L}\p{N}][\p{L}\p{N}-]*)*" required /></label>
+							</div>
+							<label>摘要<textarea id="description" rows="2" style="min-height:72px" maxlength="1000"></textarea></label>
+							<div class="row">
+								<label>分类<input id="category" maxlength="100" /></label>
+								<label>标签（逗号分隔）<input id="tags" placeholder="技术, Astro" /></label>
+							</div>
+							<div class="row">
+								<label>发布日期<input id="published" type="date" required /></label>
+								<label style="display:flex;align-items:center;gap:9px;margin-top:24px"><input id="draft" type="checkbox" style="width:auto" />草稿（不公开显示）</label>
+							</div>
+							<label>正文（Markdown）<textarea id="body" spellcheck="false"></textarea></label>
+							<div class="actions"><button id="save" class="btn primary" type="submit">保存并发布</button><button id="delete" class="btn danger hidden" type="button">删除文章</button><a id="view" class="btn hidden" target="_blank" rel="noreferrer">查看文章 ↗</a></div>
+						</form>
+						<div id="editor-status" class="status" role="status"></div>
+					</section>
+				</div>
+			</section>
+		</main>
+		<script type="module">
+			const $ = (id) => document.getElementById(id);
+			let adminKey = "";
+			let selectedSlug = null;
+			let isBuilding = false;
+			const localToday = () => { const date = new Date(); date.setMinutes(date.getMinutes() - date.getTimezoneOffset()); return date.toISOString().slice(0, 10); };
+			const status = (el, text = "", type = "") => { el.textContent = text; el.className = `status ${type}`; };
+			const setBusy = (busy) => { isBuilding = busy; $("save").disabled = busy; $("delete").disabled = busy; $("new-post").disabled = busy; $("build-tag").textContent = busy ? "正在构建发布…" : ""; };
+			async function api(path, options = {}) {
+				const headers = new Headers(options.headers || {});
+				headers.set("Authorization", `Bearer ${adminKey}`);
+				if (options.body) headers.set("Content-Type", "application/json");
+				const response = await fetch(path, { ...options, headers, cache: "no-store", credentials: "same-origin" });
+				const data = await response.json().catch(() => ({}));
+				if (!response.ok) throw new Error(data.error || `请求失败 (${response.status})`);
+				return data;
+			}
+			function resetForm() {
+				selectedSlug = null;
+				$("post-form").reset();
+				$("published").value = localToday();
+				$("form-title").textContent = "新建文章";
+				$("slug").disabled = false;
+				$("delete").classList.add("hidden");
+				$("view").classList.add("hidden");
+				drawList();
+				status($("editor-status"));
+			}
+			function drawList(posts = window.posts || []) {
+				const list = $("post-list");
+				list.replaceChildren();
+				for (const post of posts) {
+					const button = document.createElement("button");
+					button.type = "button";
+					button.className = `post-item${post.slug === selectedSlug ? " active" : ""}`;
+					const title = document.createElement("strong"); title.textContent = post.title;
+					const meta = document.createElement("small"); meta.textContent = `${post.published || "未设日期"}${post.draft ? " · 草稿" : ""}`;
+					button.append(title, meta);
+					button.addEventListener("click", () => openPost(post.slug));
+					list.append(button);
+				}
+				if (!posts.length) list.textContent = "还没有文章。";
+			}
+			async function refreshPosts() {
+				const data = await api("/api/admin/posts");
+				window.posts = data.posts;
+				drawList();
+			}
+			async function openPost(slug) {
+				try {
+					const post = await api(`/api/admin/posts/${encodeURIComponent(slug)}`);
+					selectedSlug = slug;
+					$("title").value = post.title;
+					$("slug").value = slug;
+					$("slug").disabled = true;
+					$("description").value = post.description;
+					$("category").value = post.category;
+					$("tags").value = post.tags.join(", ");
+					$("published").value = post.published;
+					$("draft").checked = post.draft;
+					$("body").value = post.body;
+					$("form-title").textContent = "编辑文章";
+					$("delete").classList.remove("hidden");
+					$("view").href = `/posts/${slug}/`;
+					$("view").classList.remove("hidden");
+					drawList();
+					status($("editor-status"));
+				} catch (error) { status($("editor-status"), error.message, "error"); }
+			}
+			$("login-form").addEventListener("submit", async (event) => {
+				event.preventDefault();
+				adminKey = $("key").value;
+				$("key").value = "";
+				try {
+					await refreshPosts();
+					$("login").classList.add("hidden");
+					$("manager").classList.remove("hidden");
+					if (window.posts.length) await openPost(window.posts[0].slug);
+				} catch (error) { adminKey = ""; status($("login-status"), error.message, "error"); }
+			});
+			$("post-form").addEventListener("submit", async (event) => {
+				event.preventDefault();
+				if (isBuilding) return;
+				const slug = $("slug").value.trim();
+				const payload = { title: $("title").value, published: $("published").value, description: $("description").value, category: $("category").value, tags: $("tags").value.split(",").map((tag) => tag.trim()).filter(Boolean), draft: $("draft").checked, body: $("body").value };
+				setBusy(true); status($("editor-status"), "保存文章并生成新站点…");
+				try {
+					const method = selectedSlug ? "PUT" : "POST";
+					const url = `/api/admin/posts/${encodeURIComponent(selectedSlug || slug)}`;
+					await api(url, { method, body: JSON.stringify(payload) });
+					status($("editor-status"), "已发布。", "ok");
+					await refreshPosts();
+					selectedSlug = slug;
+					await openPost(slug);
+				} catch (error) { status($("editor-status"), error.message, "error"); }
+				finally { setBusy(false); }
+			});
+			$("delete").addEventListener("click", async () => {
+				if (!selectedSlug || isBuilding || !confirm("将文章移入回收区并从网站移除。确认删除？")) return;
+				setBusy(true); status($("editor-status"), "删除文章并重建站点…");
+				try {
+					await api(`/api/admin/posts/${encodeURIComponent(selectedSlug)}`, { method: "DELETE" });
+					status($("editor-status"), "文章已移入回收区并从网站移除。", "ok");
+					await refreshPosts(); resetForm();
+				} catch (error) { status($("editor-status"), error.message, "error"); }
+				finally { setBusy(false); }
+			});
+			$("new-post").addEventListener("click", resetForm);
+			$("refresh").addEventListener("click", () => refreshPosts().catch((error) => status($("editor-status"), error.message, "error")));
+			$("logout").addEventListener("click", () => { adminKey = ""; window.posts = []; $("manager").classList.add("hidden"); $("login").classList.remove("hidden"); status($("login-status"), "密钥已清除。"); });
+		</script>
+	</body>
+</html>

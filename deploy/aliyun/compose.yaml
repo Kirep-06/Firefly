@@ -1,0 +1,45 @@
+name: kirep-blog
+
+x-blog-image: &blog-image
+  build:
+    context: ../..
+    dockerfile: deploy/aliyun/Dockerfile
+
+services:
+  seed-posts:
+    <<: *blog-image
+    user: "0:0"
+    command:
+      - sh
+      - -c
+      - 'if [ -z "$(find /app/src/content/posts -mindepth 1 -maxdepth 1 -print -quit)" ]; then cp -a /seed-posts/. /app/src/content/posts/; fi; chown -R node:node /app/src/content/posts /var/lib/kirep-blog'
+    volumes:
+      - blog-posts:/app/src/content/posts
+      - blog-data:/var/lib/kirep-blog
+    restart: "no"
+
+  blog:
+    <<: *blog-image
+    user: "node"
+    depends_on:
+      seed-posts:
+        condition: service_completed_successfully
+    env_file:
+      - .env
+    environment:
+      PORT: "3000"
+      SITE_ORIGIN: "https://kirep.top"
+      POSTS_DIR: "/app/src/content/posts"
+      POSTS_TRASH_DIR: "/var/lib/kirep-blog/trash"
+      SITE_RELEASES_DIR: "/var/lib/kirep-blog/releases"
+      SITE_CURRENT_DIR: "/var/lib/kirep-blog/current"
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - blog-posts:/app/src/content/posts
+      - blog-data:/var/lib/kirep-blog
+    restart: unless-stopped
+
+volumes:
+  blog-posts:
+  blog-data:

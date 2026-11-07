@@ -1,0 +1,13 @@
+.git
+.github
+node_modules
+dist
+.astro
+.pnpm
+.corepack
+.releases
+current
+.env*
+!deploy/aliyun/.env.example
+deploy/aliyun/.env
+pnpm-debug.log*

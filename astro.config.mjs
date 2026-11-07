@@ -1,4 +1,6 @@
 import { setMaxListeners } from "node:events";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
 import cloudflare from "@astrojs/cloudflare";
 import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
@@ -68,6 +70,9 @@ const adapter = process.env.CF_WORKERS
 // https://astro.build/config
 export default defineConfig({
 	site: siteConfig.site_url,
+	// Allow the Aliyun article editor to build into a fresh release directory,
+	// then atomically switch the live site without serving a half-built dist/.
+	outDir: pathToFileURL(path.resolve(process.env.ASTRO_OUT_DIR || "dist")),
 
 	base: "/",
 	trailingSlash: "always",
